@@ -6,7 +6,6 @@
 #include <SDL.h>
 #include <ctime>
 
-int n;
 
 int initialize() {
 	SDL_Window* main_window;
@@ -25,20 +24,24 @@ void update(std::vector<Enemy> &enemies)  {
 	SDL_SetRenderDrawColor(GRAW::R, 255, 255, 255, 0);
 	GRAW::Draw(100, 400, 4, 800);
 	GRAW::Draw(500, 400, 4, 800);
-	//std::cout << "Updt" << n++ << '\n';
 	
+	GRAW::FramesFromStart++;
+
+	if (GRAW::FramesFromStart % 6000 == 0)
+		enemies.push_back(Enemy());
 
 	SDL_SetRenderDrawColor(GRAW::R, 242, 135, 5, 0);
 	for (int i = 0; i < enemies.size(); i++) {
 		enemies[i].Update();
 	}
+
+
 	Tower::Update();
 		
 	UI::RenderUi();
 
 	//Render changes
 	SDL_RenderPresent(GRAW::R);
-	SDL_Delay(Enemy::speed);
 }
 
 int main()
@@ -46,7 +49,7 @@ int main()
 	srand(time(NULL));
 	std::vector<Enemy> enemies;
 	for (int i = 0; i < 5; i++) {
-		Enemy en(200 + (rand() % 200), rand() % 100 + 500 * (rand() % 2));
+		Enemy en(200 + (rand() % 200), 10 + 790 * (rand() % 2));
 		enemies.push_back(en);
 
 	}
@@ -59,11 +62,11 @@ int main()
 	}
 	switch (difficulty) {
 	case 1:
-		Enemy::speed = 40;
+		Enemy::speed = 70;
 	case 2:
-		Enemy::speed = 30;
+		Enemy::speed = 50;
 	case 3:
-		Enemy::speed = 15;
+		Enemy::speed = 40;
 	}
 		
 

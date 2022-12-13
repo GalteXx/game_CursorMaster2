@@ -17,3 +17,4 @@ void GRAW::Draw(int xMid, int yMid, int xSize, int ySize) {
 		}
 	}
 }
+int GRAW::FramesFromStart = 0;

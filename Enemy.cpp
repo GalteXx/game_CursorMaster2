@@ -11,10 +11,13 @@ Enemy::Enemy(int Cx, int Cy) {
 }
 
 void Enemy::Update() {
-    
-    Move();
+    GetPushed();
+    if(speed != 0 && GRAW::FramesFromStart % (speed) == 0)
+        Move();
+    if (GRAW::FramesFromStart  % 50 * speed == 0 && speed > 10)
+        speed--;
     Attack();
-    if (x < 150 || x > 450) {
+    if (x < 100 || x > 500) {
         Tower::Points += 4 * (50 - speed);
         Die();
     }
@@ -31,11 +34,12 @@ void Enemy::Attack() {
         Tower::Hit();
         Die();
     }
+
 }
 
 void Enemy::Die() {
     x = 200 + (rand() % 200);
-    y = rand() % 100 + 500 * (rand() % 2);
+    y = 5 +  790 * (rand() % 2);
 }
 
 void Enemy::GetPushed() {
@@ -52,17 +56,15 @@ void Enemy::GetPushed() {
     int difx = mouse::X - x;
     int dify = mouse::Y - y;
 
-    if (difx * difx + dify * dify > 900)
+    if (difx * difx + dify * dify > 900) {
         return;
-    x += difx * ((30.0 - (difx * difx + dify * dify)) / (difx * difx + dify * dify));
-    y += dify * ((30.0 - (difx * difx + dify * dify)) / (difx * difx + dify * dify));
+    }
+    MoveTowards(x + difx * ((30.0 - (difx * difx + dify * dify)) / (difx * difx + dify * dify)),
+       y + dify * ((30.0 - (difx * difx + dify * dify)) / (difx * difx + dify * dify)));
     
-    
-
 }
 
 void Enemy::Move() {
-    GetPushed();
     int deltaX = abs(targetX - x);
     int deltaY = abs(targetY - y);
     int signX = x < targetX ? 1 : -1;
@@ -80,6 +82,25 @@ void Enemy::Move() {
         y += signY;
     }
     
+}
+void Enemy::MoveTowards(int _targetX, int _targetY) {
+    int deltaX = abs(_targetX - x);
+    int deltaY = abs(_targetY - y);
+    int signX = x < _targetX ? 1 : -1;
+    int signY = y < _targetY ? 1 : -1;
+    int error = deltaX - deltaY;
+    int error2 = error * 2;
+    if (error2 > -deltaY)
+    {
+        error -= deltaY;
+        x += signX * 3;
+    }
+    if (error2 < deltaX)
+    {
+        error += deltaX;
+        y += signY * 3;
+    }
+
 }
 
 void Enemy::SetCoords(int xx, int yy) {

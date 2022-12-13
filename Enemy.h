@@ -17,6 +17,7 @@ private:
 	void GetPushed();
 	void Die();
 	void Attack();
+	void MoveTowards(int _targetX, int _targetY);
 };
 
 #endif // global_update_h

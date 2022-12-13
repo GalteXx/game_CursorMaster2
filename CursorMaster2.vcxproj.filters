@@ -33,9 +33,6 @@
     <ClCompile Include="UI.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="DeathPits.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -57,9 +54,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="DeathPit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

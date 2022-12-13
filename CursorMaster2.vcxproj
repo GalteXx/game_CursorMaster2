@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DeathPits.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GlobalRendererAndWindow.cpp" />
     <ClCompile Include="main.cpp" />
@@ -139,7 +138,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DeathPit.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GlobalRendererAndWindow.h" />
     <ClInclude Include="includes.h" />

@@ -8,5 +8,6 @@ public:
 	static SDL_Window* W;
 	static SDL_Renderer* R;
 	static void Draw(int xMid, int yMid, int xSize, int ySize);
+	static int FramesFromStart;
 };
 #endif // GRAW_h
