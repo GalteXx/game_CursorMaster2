@@ -2,6 +2,7 @@
 #include "GlobalRendererAndWindow.h"
 #include "Tower.h"
 #include <cstdlib>
+#include <iostream>
 
 Enemy::Enemy(int Cx, int Cy) {
 	x = Cx;
@@ -12,16 +13,15 @@ Enemy::Enemy(int Cx, int Cy) {
 
 void Enemy::Update() {
     GetPushed();
-    if(speed != 0 && GRAW::FramesFromStart % (speed) == 0)
+    if (GRAW::FramesFromStart % speed == 0) {
         Move();
-    if (GRAW::FramesFromStart  % 50 * speed == 0 && speed > 10)
-        speed--;
+    }
     Attack();
     if (x < 100 || x > 500) {
-        Tower::Points += 4 * (50 - speed);
+        Tower::Points += 4 * (120 - speed);
         Die();
     }
-    GRAW::Draw(x, y, 20, 20);
+    GRAW::Draw(x, y, 20, 20, 0);
 }
 
 int* Enemy::GetCoords() {
@@ -52,16 +52,16 @@ void Enemy::GetPushed() {
         SDL_GetMouseState(&xe, &ye);
         mouse::X = xe;
         mouse::Y = ye;
-    }
-    int difx = mouse::X - x;
-    int dify = mouse::Y - y;
 
-    if (difx * difx + dify * dify > 900) {
-        return;
+        int difx = mouse::X - x;
+        int dify = mouse::Y - y;
+
+        if (difx * difx + dify * dify > 900) {
+            return;
+        }
+        MoveTowards(x + difx * ((30.0 - (difx * difx + dify * dify)) / (difx * difx + dify * dify)),
+            y + dify * ((30.0 - (difx * difx + dify * dify)) / (difx * difx + dify * dify)));
     }
-    MoveTowards(x + difx * ((30.0 - (difx * difx + dify * dify)) / (difx * difx + dify * dify)),
-       y + dify * ((30.0 - (difx * difx + dify * dify)) / (difx * difx + dify * dify)));
-    
 }
 
 void Enemy::Move() {

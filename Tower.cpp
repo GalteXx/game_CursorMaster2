@@ -4,7 +4,7 @@
 void Tower::Update() {
 
 	SDL_SetRenderDrawColor(GRAW::R, 255, 255, 255, 0);
-	GRAW::Draw(300, 400, 50, 50);
+	GRAW::Draw(300, 400, 50, 50, 1);
 }
 
 
